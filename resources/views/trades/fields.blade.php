@@ -33,5 +33,5 @@
 <!-- Qty Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('qty', 'Qty:') !!}
-    {!! Form::number('qty', null, ['class' => 'form-control','min' => 1]) !!}
+    {!! Form::number('qty', null, ['class' => 'form-control', 'step' => 1]) !!}
 </div>

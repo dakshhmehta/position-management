@@ -18,7 +18,7 @@ class CreateTradesTable extends Migration
             $table->id('id');
             $table->date('date');
             $table->enum('type', ['buy','sell']);
-            $table->integer('qty')->unsigned();
+            $table->integer('qty');
 
             $table->unsignedBigInteger('broker_id');
             $table->unsignedBigInteger('symbol_id');

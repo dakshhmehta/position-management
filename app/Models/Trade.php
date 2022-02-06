@@ -49,10 +49,21 @@ class Trade extends Model
     public static $rules = [
         'date' => 'required|date',
         'type' => 'required',
-        'qty' => 'required|numeric|min:1',
+        'qty' => 'required|numeric',
         'broker_id' => 'required',
         'symbol_id' => 'required'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($trade) {
+            if ($trade->type == 'sell' and $trade->qty > 0) {
+                $trade->qty = -1 * $trade->qty;
+            }
+        });
+    }
 
     public function broker()
     {

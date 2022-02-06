@@ -41,4 +41,11 @@ class TradeRepository extends BaseRepository
     {
         return Trade::class;
     }
+
+    public function all($search = [], $skip = null, $limit = null, $columns = ['*'])
+    {
+        $query = $this->allQuery($search, $skip, $limit);
+
+        return $query->orderBy('date', 'DESC')->get($columns);
+    }
 }

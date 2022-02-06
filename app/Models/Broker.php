@@ -18,9 +18,6 @@ class Broker extends Model
 
 
     public $table = 'brokers';
-    
-
-
 
     public $fillable = [
         'name'
@@ -44,5 +41,8 @@ class Broker extends Model
         'name' => 'required'
     ];
 
-    
+    public function trades()
+    {
+        return $this->hasMany(Trade::class);
+    }    
 }

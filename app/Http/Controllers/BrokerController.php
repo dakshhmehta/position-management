@@ -6,6 +6,7 @@ use App\Http\Requests\CreateBrokerRequest;
 use App\Http\Requests\UpdateBrokerRequest;
 use App\Repositories\BrokerRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Trade;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -80,7 +81,14 @@ class BrokerController extends AppBaseController
             return redirect(route('brokers.index'));
         }
 
-        return view('brokers.show')->with('broker', $broker);
+        $trades = $broker->trades()->orderBy('date', 'DESC')->get();
+
+        $positions = Trade::where('broker_id', $broker->id)
+        ->select(['symbol_id', \DB::raw('sum(qty) as `qty`')])
+        ->groupBy('symbol_id')
+        ->get();
+
+        return view('brokers.show', compact('trades', 'broker', 'positions'));
     }
 
     /**
