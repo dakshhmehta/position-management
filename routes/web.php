@@ -13,15 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/home');
 
-
-Route::resource('brokers', App\Http\Controllers\BrokerController::class);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-Route::resource('symbols', App\Http\Controllers\SymbolController::class);
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('brokers', App\Http\Controllers\BrokerController::class);
+    Route::resource('symbols', App\Http\Controllers\SymbolController::class);
+    Route::resource('trades', App\Http\Controllers\TradeController::class);
+});
