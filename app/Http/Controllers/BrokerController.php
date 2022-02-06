@@ -88,6 +88,10 @@ class BrokerController extends AppBaseController
         ->groupBy('symbol_id')
         ->get();
 
+        $positions = $positions->filter(function($p){
+            return $p->qty > 0;
+        });
+
         return view('brokers.show', compact('trades', 'broker', 'positions'));
     }
 
