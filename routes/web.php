@@ -22,3 +22,6 @@ Route::resource('brokers', App\Http\Controllers\BrokerController::class);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::resource('symbols', App\Http\Controllers\SymbolController::class);
